@@ -1,0 +1,16 @@
+{
+    "name": "Tank.Modules.Collisions",
+    "rootNamespace": "Tank.Modules.Collisions",
+    "references": [
+        "Tank.Contracts"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

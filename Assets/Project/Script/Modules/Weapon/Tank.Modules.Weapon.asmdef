@@ -1,0 +1,17 @@
+{
+    "name": "Tank.Modules.Weapon",
+    "rootNamespace": "Tank.Modules.Weapon",
+    "references": [
+        "Tank.App",
+        "Tank.Contracts"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

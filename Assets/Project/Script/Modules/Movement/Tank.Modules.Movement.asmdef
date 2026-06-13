@@ -1,0 +1,16 @@
+{
+    "name": "Tank.Modules.Movement",
+    "rootNamespace": "Tank.Modules.Movement",
+    "references": [
+        "Tank.Contracts"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
