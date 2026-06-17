@@ -1,0 +1,27 @@
+{
+    "name": "Tank.Feature",
+    "rootNamespace": "Tank.Feature",
+    "references": [
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "Tank.App",
+        "Tank.Contracts",
+        "Tank.Modules.TankCore",
+        "Tank.Modules.Movement",
+        "Tank.Modules.Weapon",
+        "Tank.Modules.AI",
+        "Tank.Modules.Collisions",
+        "Tank.Modules.UI",
+        "Tank.GameSession",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
