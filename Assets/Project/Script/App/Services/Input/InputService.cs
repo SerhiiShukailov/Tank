@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 namespace Tank.App.Project.Script.App.Services.Input {
   public class InputService : IInputService, IDisposable {
     private readonly TankControls _controls;
-    private bool _firePressed;
+
+    public event Action FirePressed;
 
     public InputService() {
       _controls = new TankControls();
@@ -21,20 +22,12 @@ namespace Tank.App.Project.Script.App.Services.Input {
     }
 
     private void OnFirePerformed (InputAction.CallbackContext context) {
-      _firePressed = true;
+      FirePressed?.Invoke();
     }
 
     public Vector2 Move {
       get {
         return _controls.Player.Move.ReadValue<Vector2>();
-      }
-    }
-
-    public bool FirePressed {
-      get {
-        bool pressed = _firePressed;
-        _firePressed = false;
-        return pressed;
       }
     }
   }

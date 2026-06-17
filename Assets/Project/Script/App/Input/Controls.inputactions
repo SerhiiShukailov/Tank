@@ -82,7 +82,18 @@
                 },
                 {
                     "name": "",
-                    "id": "a9a9a9a9-a9a9-4a9a-8a9a-a9a9a9a9a9a9",
+                    "id": "ba8d50fc-28c1-4bc2-8b4e-06c790bd503e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de7674cd-3bfe-4ec4-ac5e-25d7892a908c",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
@@ -93,8 +104,8 @@
                 },
                 {
                     "name": "",
-                    "id": "ba8d50fc-28c1-4bc2-8b4e-06c790bd503e",
-                    "path": "<Keyboard>/space",
+                    "id": "ab9dbe20-5bc9-4d60-aa74-18fc7478fb14",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
