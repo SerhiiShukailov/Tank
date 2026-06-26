@@ -15,9 +15,8 @@ namespace Tank.Modules.TankCore.Project.Script.Modules.TankCore {
     }
 
     public void Move (Vector2 direction) {
-      float deltaTime = Time.deltaTime;
-      _rotate.Rotate(direction.x, deltaTime);
-      _move.Move(new Vector2(0f, direction.y), deltaTime);
+      _rotate.Rotate(direction.x);
+      _move.Move(new Vector2(0f, direction.y));
     }
     
 
