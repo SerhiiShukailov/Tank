@@ -4,8 +4,10 @@ using UnityEngine;
 namespace Tank.Modules.AI.Project.Script.Modules.AI.States {
   public class AIPatrolState : IAIState {
     private const float STEER_SENSITIVITY = 30f;
-    private const float STUCK_CHECK_INTERVAL = 0.4f;
-    private const float MIN_PROGRESS_SQR = 0.25f;
+    private const float STUCK_CHECK_INTERVAL = 0.5f;
+    private const float MIN_PROGRESS_SQR = 0.1f;
+    private const float ANGLE_TO_MOVE = 5f;
+
 
     private readonly AIContext _context;
     private float _heading;
@@ -25,11 +27,28 @@ namespace Tank.Modules.AI.Project.Script.Modules.AI.States {
     }
 
     public void Tick (float deltaTime) {
+      _timer += deltaTime;
+
+      if(_timer >= _context.Config.DirectionChangeInterval) {
+        ForceTurn();
+      }
+
       float steer = SteerToHeading();
 
       if(_reverseTimer > 0f) {
         _reverseTimer -= deltaTime;
-        _context.Command.Move(new Vector2(steer, -1f));
+        _context.Command.Move(new Vector2(0f, -1f));
+
+        if(_reverseTimer <= 0f) {
+          TurnBack();
+        }
+
+        return;
+      }
+
+      if(!IsFacingHeading()) {
+        _context.Command.Move(new Vector2(steer, 0f));
+        ResetStuckCheck();
         return;
       }
 
@@ -38,26 +57,37 @@ namespace Tank.Modules.AI.Project.Script.Modules.AI.States {
         return;
       }
 
-      _timer += deltaTime;
-
-      if(_timer >= _context.Config.DirectionChangeInterval) {
-        ForceTurn();
-      }
-
       _context.Command.Move(new Vector2(steer, 1f));
     }
 
     public void Exit() {}
 
-    public void ForceTurn() {
-      _heading = Random.Range(0f, 360f);
-      _timer = 0f;
-    }
-
     public void Bounce() {
-      _heading = _context.Body.eulerAngles.y + 180f;
       _reverseTimer = _context.Config.ReverseDuration;
       _timer = 0f;
+      ResetStuckCheck();
+    }
+
+    private void TurnBack() {
+      _heading = _context.Body.eulerAngles.y + 180f;
+      _timer = 0f;
+      ResetStuckCheck();
+    }
+
+    private bool IsFacingHeading() {
+      float angle = Mathf.Abs(Mathf.DeltaAngle(_context.Body.eulerAngles.y, _heading));
+      return angle <= ANGLE_TO_MOVE;
+    }
+
+    private void ResetStuckCheck() {
+      _stuckTimer = 0f;
+      _lastProgressPosition = _context.Body.position;
+    }
+
+    private void ForceTurn() {
+      _heading = Random.Range(0f, 360f);
+      _timer = 0f;
+      ResetStuckCheck();
     }
 
     private bool IsStuck (float deltaTime) {
