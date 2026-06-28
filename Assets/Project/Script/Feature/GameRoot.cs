@@ -33,22 +33,37 @@ namespace Tank.Feature.Project.Script.Feature {
     private TankEntity _tankPrefab;
 
     protected override void Configure (IContainerBuilder builder) {
+      RegisterService(builder);
+      RegisterConfig(builder);
+      RegisterPrefab(builder);
+      RegisterMetaComponent(builder);
+      CreateTanksInstaller(builder);
+      RegisterGameFlow(builder);
+    }
+
+    private void RegisterService (IContainerBuilder builder) {
       builder.Register<IInputService, InputService>(Lifetime.Singleton);
       builder.Register<ISaveLoadService, SaveLoadService>(Lifetime.Singleton);
       builder.RegisterComponentInHierarchy<ArenaComponent>().As<IField>();
       builder.Register<ISpawnService, SpawnService>(Lifetime.Singleton);
       builder.Register<PlayerTargetProvider>(Lifetime.Singleton).AsSelf().As<ITargetProvider>();
+    }
 
+    private void RegisterConfig (IContainerBuilder builder) {
       ConfigService configs = new ConfigService();
       builder.RegisterInstance<IConfigService>(configs);
-
-      builder.RegisterInstance(_tankPrefab);
       builder.RegisterInstance(configs.Get<AIConfig>());
       builder.RegisterInstance(configs.Get<TankAppearanceConfig>());
       builder.RegisterInstance(configs.Get<ScoreConfig>());
       builder.RegisterInstance(configs.Get<BattleConfig>());
       builder.RegisterInstance(configs.Get<WaveConfig>());
+    }
 
+    private void RegisterPrefab (IContainerBuilder builder) {
+      builder.RegisterInstance(_tankPrefab);
+    }
+
+    private void RegisterMetaComponent (IContainerBuilder builder) {
       builder.Register<IEventBus, EventBus>(Lifetime.Singleton);
       builder.Register<IScore, ScoreModel>(Lifetime.Singleton);
       builder.Register<ScoreViewModel>(Lifetime.Singleton);
@@ -57,10 +72,14 @@ namespace Tank.Feature.Project.Script.Feature {
       builder.Register<LivesViewModel>(Lifetime.Singleton);
       builder.RegisterComponentInHierarchy<LivesView>();
       builder.RegisterComponentInHierarchy<RoundBannerView>().As<IRoundBanner>();
+    }
 
+    private void CreateTanksInstaller (IContainerBuilder builder) {
       new PlayerTankInstaller().Install(builder);
       new EnemyTankInstaller().Install(builder);
+    }
 
+    private void RegisterGameFlow (IContainerBuilder builder) {
       builder.Register<WaveSequence>(Lifetime.Singleton);
       builder.Register<GameSessionContext>(Lifetime.Singleton);
       builder.Register<GameStateMachine>(Lifetime.Singleton);
